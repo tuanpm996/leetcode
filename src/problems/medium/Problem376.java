@@ -8,18 +8,25 @@ public class Problem376 {
     }
 
     public int wiggleMaxLength(int[] nums) {
-        int[] data = new int[nums.length - 1];
-        for (int i = 0; i < nums.length - 1; i++) {
-            data[i] = nums[i + 1] - nums[i] > 0 ? 1 : -1;
+        int i = 1;
+        while (i < nums.length && nums[i] == nums[i - 1]) {
+            i++;
         }
-        int[] dp = new int[data.length];
+        int count = 0;
+        boolean up = nums[i] - nums[i - 1] > 0;
+        while (i < nums.length) {
+            if (up && nums[i] - nums[i - 1] < 0) {
+                up = false;
+                count++;
+            }
+            if (!up && nums[i] - nums[i - 1] > 0) {
+                up = true;
+                count++;
+            }
+            i++;
+        }
 
-        int max = 0;
-        dp[0] = data[0];
-        for (int i = 1; i < dp.length; i++) {
-            dp[i] = (data[i] + data[i - 1]) == 0 ? dp[i - 1] + 1 : 1;
-            max = Math.max(dp[i], max);
-        }
-        return max + 1;
+        return count + 2;
     }
+
 }

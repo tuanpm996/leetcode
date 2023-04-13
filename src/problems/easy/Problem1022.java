@@ -42,7 +42,7 @@ public class Problem1022 {
         return 0;
     }
 
-    public static class TreeNode {
+    private static class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;

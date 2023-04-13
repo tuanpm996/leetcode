@@ -1,38 +1,34 @@
 package turing;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Solution {
 
 
     public static void main(String[] args) {
-        String[] data = {"5", "2", "C", "D", "+"};
-        int i = calPoints(data);
-        System.out.println(i);
+        int[] repeat = new Solution().findRepeat(new int[]{1, 2, 2});
+        System.out.println(Arrays.toString(repeat));
     }
 
-    public static int calPoints(String[] ops) {
-        List<Integer> results = new ArrayList<>();
-        for (String op : ops) {
-            switch (op) {
-                case "C":
-                    results.remove(results.size() - 1);
-                    break;
-                case "D":
-                    results.add(results.get(results.size() - 1) * 2);
-                    break;
-                case "+":
-                    results.add(results.get(results.size() - 1) + results.get(results.size() - 2));
-                    break;
-                default:
-                    int number = Integer.parseInt(op);
-                    results.add(number);
-                    break;
+    public int[] findRepeat(int[] arr) {
+        Set<Integer> set = new HashSet<>();
+        for (int i = 0; i < arr.length; i++) {
+            set.add(i + 1);
+        }
+        Map<Integer, Integer> num2Count = new HashMap<>();
+        for (int num : arr) {
+            num2Count.put(num, num2Count.getOrDefault(num, 0) + 1);
+            set.remove(num);
+        }
+        int num = 0;
+        for (Map.Entry<Integer, Integer> entry : num2Count.entrySet()) {
+            if (entry.getValue() > 1) {
+                num = entry.getKey();
             }
         }
-        return results.stream().
-                mapToInt(t -> t)
-                .sum();
+        ArrayList<Integer> integers = new ArrayList<>(set);
+        return new int[]{num, integers.get(0)};
+
+
     }
 }
