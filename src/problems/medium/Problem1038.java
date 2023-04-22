@@ -42,7 +42,7 @@ public class Problem1038 {
             stack.push(curr);
             if (curr.right != null) {
                 curr = curr.right;
-                stack.push(curr.right)
+                stack.push(curr.right);
             }
         }
     }
